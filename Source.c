@@ -58,17 +58,18 @@ void bellman_ford(int *graph, int vertices_number, int source_vertex) { //Finds 
 }
 int main() {
 	int graph_existing[6][6] = //This graph is taken from our presentation and this link: https://youtu.be/obWXjtg0L64 (Last visited Dec. 6, 2020.)
-	{ { 0, 10, INFINITE, INFINITE, INFINITE, 8 },
-	{ INFINITE, 0, INFINITE, 2, INFINITE, INFINITE },
-	{ INFINITE, 1, 0, INFINITE, INFINITE, INFINITE },
-	{ INFINITE, INFINITE, -2, 0, INFINITE, INFINITE },
-	{ INFINITE, -4, INFINITE, -1, 0, INFINITE },
-	{ INFINITE, INFINITE, INFINITE, INFINITE, 1, 0 } };
+		{ { 0, 10, INFINITE, INFINITE, INFINITE, 8 },
+		{ INFINITE, 0, INFINITE, 2, INFINITE, INFINITE },
+		{ INFINITE, 1, 0, INFINITE, INFINITE, INFINITE },
+		{ INFINITE, INFINITE, -2, 0, INFINITE, INFINITE },
+		{ INFINITE, -4, INFINITE, -1, 0, INFINITE },
+		{ INFINITE, INFINITE, INFINITE, INFINITE, 1, 0 } };
 	do {
 		printf("---Bellman-Ford Algorithm---\n");
 		printf("1. Work on the existing graph.\n");
 		printf("2. Enter a new graph.\n");
-		printf("3. Exit.\n");
+		printf("3. Clear screen.\n");
+		printf("4. Exit.\n");
 		printf("Select an option: ");
 		int option;
 		scanf_s("%d", &option);
@@ -80,17 +81,20 @@ int main() {
 		case 2:
 			printf("\nEnter the number of vertices: ");
 			int vertices_number;
-			scanf_s("%d", &vertices_number);
+			while (scanf_s("%d", &vertices_number) != 1) getchar(); //If user enters characters instead of integers, this getchar() discards characters.
 			int *graph_new = (int *)malloc(vertices_number * vertices_number * sizeof(int));
 			printf("Enter the vertices (For infinite value, enter 9999):\n");
 			for (int i = 0; i < vertices_number; i++)
 				for (int j = 0; j < vertices_number; j++)
-					scanf_s("%d", (graph_new + i * vertices_number + j));
+					while (scanf_s("%d", (graph_new + i * vertices_number + j)) != 1) getchar();
 			printf("Enter the source vertex: ");
 			int source_vertex;
-			scanf_s("%d", &source_vertex);
+			while (scanf_s("%d", &source_vertex) != 1) getchar();
 			printf("\n");
 			bellman_ford((int*)graph_new, vertices_number, source_vertex);
+			break;
+		case 3:
+			system("cls");
 			break;
 		default:
 			return 0;
